@@ -7,9 +7,11 @@ import java.util.*;
 public class Game {
     private List<Player> listOfPlayers = new ArrayList<>();
     private Long id;
-    private String status;
+
     private int numberOfRounds;
     private Map<String, Integer> scoreBoard = new HashMap<String, Integer>();
+    public enum Status {START,JOINED,WAITING_FOR_PLAY,ROUND_FINISHED,GAME_FINISHED}
+    private Status status;
 
     public Game() {
     }
@@ -30,11 +32,11 @@ public class Game {
             this.getListOfPlayers().add(player);
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
