@@ -54,115 +54,23 @@ public class GameService {
         return this.getListOfGames();
     }
 
-//    public List<Game> makeAplay(Long id, String name) {
-//        if(counter == 2){
-//            for(Game game : listOfGames){
-//                if(game.getId().equals(id) ){
-//                    if (game.getScoreBoard().values().stream().mapToInt(Integer::valueOf).sum() == game.getNumberOfRounds()) {
-//                        listOfGames.remove(game);
-//                        throw new IllegalStateException("This game has ended, the result was "+game.getScoreBoard());
-//                    }
-//                    List<Player> list_players = game.getListOfPlayers();
-//                    for(Player player : list_players) {
-//                            player.setMove(null);
-//                    }
-//                }
-//            }
-//            counter = 0;
-//        }
-//           for(Game g : listOfGames){
-//               if(g.getId().equals(id) ){
-//                   //counter++;
-//                   List<Player> players = g.getListOfPlayers();
-//                   for(Player p : players){
-//                       if(p.getName().equals(name) ){
-//                            if(p.getMove() == null){
-//                                if(p.getStrategy().equals("rocksOnly")){
-//                                    p.setMove(ROCK);
-//                                }
-//                                if(p.getStrategy().equals("random")){
-//                                    p.setMove(p.setRandomMove());
-//                                }
-//                                counter++;
-//                                if(counter == 2){ //tirar
-//                                    if(players.indexOf(p) == 1){
-//                                        if( ((p.getMove().equals(ROCK) && players.get(0).getMove().equals(SCISSORS)) || (p.getMove().equals(PAPER) && players.get(0).getMove().equals(ROCK)) || (p.getMove().equals(SCISSORS) && players.get(0).getMove().equals(PAPER))) && !(p.getMove() == players.get(0).getMove()) ){
-//                                            if(g.getScoreBoard().containsKey(p.getName())){
-//                                                g.getScoreBoard().put(p.getName(), g.getScoreBoard().get(p.getName()) +1);
-//                                            }else{
-//                                                g.getScoreBoard().put(p.getName(),1);
-//                                            }
-//                                        }else if (!(p.getMove() ==  players.get(0).getMove())){
-//                                            if(g.getScoreBoard().containsKey(players.get(0).getName())){
-//                                                g.getScoreBoard().put(players.get(0).getName(), g.getScoreBoard().get(players.get(0).getName()) +1);
-//                                            }else{
-//                                                g.getScoreBoard().put(players.get(0).getName(),1);
-//                                            }
-//                                        }else{
-//                                            if(g.getScoreBoard().containsKey("Ties")){
-//                                                g.getScoreBoard().put("Ties", g.getScoreBoard().get("Ties") +1);
-//                                            }else{
-//                                                g.getScoreBoard().put("Ties",1);
-//                                            }
-//                                        }
-//                                    }else{
-//                                        if( ((p.getMove().equals(ROCK) && players.get(1).getMove().equals(SCISSORS)) || (p.getMove().equals(PAPER) && players.get(1).getMove().equals(ROCK)) || (p.getMove().equals(SCISSORS) && players.get(1).getMove().equals(PAPER))) && !(p.getMove() ==  players.get(1).getMove()) ){
-//                                            if(g.getScoreBoard().containsKey(p.getName())){
-//                                                g.getScoreBoard().put(p.getName(), g.getScoreBoard().get(p.getName()) +1);
-//                                            }else{
-//                                                g.getScoreBoard().put(p.getName(),1);
-//                                            }
-//                                        }else if (!(p.getMove() ==  players.get(1).getMove())){
-//                                            if(g.getScoreBoard().containsKey(players.get(1).getName())){
-//                                                g.getScoreBoard().put(players.get(1).getName(), g.getScoreBoard().get(players.get(1).getName()) +1);
-//                                            }else{
-//                                                g.getScoreBoard().put(players.get(1).getName(),1);
-//                                            }
-//                                        }else{
-//                                            if(g.getScoreBoard().containsKey("Ties")){
-//                                                g.getScoreBoard().put("Ties", g.getScoreBoard().get("Ties") +1);
-//                                            }else{
-//                                                g.getScoreBoard().put("Ties",1);
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }else{
-//                                throw new IllegalStateException("This player has made a move already");
-//                            }
-//                       }
-//                   }
-//               }
-//           }
-//        return this.getListOfGames();
-//    }
-
 
 
     public List<Game> makeAplay(Long id, String name) {
 
-            for(Game game : listOfGames){
-                if(game.getId().equals(id) ) {
-                    if (game.getScoreBoard().values().stream().mapToInt(Integer::valueOf).sum() == game.getNumberOfRounds() && game.getStatus().equals(ROUND_FINISHED)) {
-                        game.setStatus(GAME_FINISHED);
-                        listOfGames.remove(game);
-                        throw new IllegalStateException("This game has ended, the result was " + game.getScoreBoard());
-                    }
-                    List<Player> list_players = game.getListOfPlayers();
-                    if (game.getStatus().equals(ROUND_FINISHED)){
-                        for (Player player : list_players) {
-                            player.setMove(null);
-                        }
-                        game.setStatus(JOINED);
-                    }
-                }
-            }
-
-
 
         for(Game g : listOfGames){
             if(g.getId().equals(id) ){
+                if (g.getStatus().equals(GAME_FINISHED)) {
+                    throw new IllegalStateException("This game has ended, the result was " + g.getScoreBoard());
+                }
                 List<Player> players = g.getListOfPlayers();
+                if (g.getStatus().equals(ROUND_FINISHED)){
+                    for (Player player : players) {
+                        player.setMove(null);
+                    }
+                    g.setStatus(JOINED);
+                }
                 for(Player p : players){
                     if(p.getName().equals(name) ){
                         if(p.getMove() == null){
@@ -192,11 +100,7 @@ public class GameService {
                                             g.getScoreBoard().put(players.get(0).getName(),1);
                                         }
                                     }else{
-                                        if(g.getScoreBoard().containsKey("Ties")){
                                             g.getScoreBoard().put("Ties", g.getScoreBoard().get("Ties") +1);
-                                        }else{
-                                            g.getScoreBoard().put("Ties",1);
-                                        }
                                     }
                                 }else{
                                     if( ((p.getMove().equals(ROCK) && players.get(1).getMove().equals(SCISSORS)) || (p.getMove().equals(PAPER) && players.get(1).getMove().equals(ROCK)) || (p.getMove().equals(SCISSORS) && players.get(1).getMove().equals(PAPER))) && !(p.getMove() ==  players.get(1).getMove()) ){
@@ -212,11 +116,7 @@ public class GameService {
                                             g.getScoreBoard().put(players.get(1).getName(),1);
                                         }
                                     }else{
-                                        if(g.getScoreBoard().containsKey("Ties")){
                                             g.getScoreBoard().put("Ties", g.getScoreBoard().get("Ties") +1);
-                                        }else{
-                                            g.getScoreBoard().put("Ties",1);
-                                        }
                                     }
                                 }
                             }
@@ -225,8 +125,29 @@ public class GameService {
                         }
                     }
                 }
+                if (g.getScoreBoard().values().stream().mapToInt(Integer::valueOf).sum() == g.getNumberOfRounds() && g.getStatus().equals(ROUND_FINISHED)) {
+                    g.setStatus(GAME_FINISHED);
+                }
             }
         }
         return this.getListOfGames();
     }
+
+    public List<Game> endGame(Long id) {
+        for(Game g : listOfGames) {
+            if (g.getId().equals(id)) {
+                if(g.getStatus().equals(GAME_FINISHED)) {
+                    listOfGames.remove(g);
+                    return this.getListOfGames();
+                }else{
+                    throw new IllegalStateException("This game is not over yet!!!");
+                }
+            }
+        }
+        return this.getListOfGames();
+    }
+
+
+
+
 }

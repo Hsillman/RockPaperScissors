@@ -14,6 +14,7 @@ public class Game {
     private Status status;
 
     public Game() {
+        this.getScoreBoard().put("Ties",0);
     }
 
     public int getNumberOfRounds() {

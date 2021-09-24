@@ -1,5 +1,6 @@
 package com.game.rpsgame.game;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.rpsgame.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class GameController {
     }
 
     @GetMapping
-    public List<Game> getThegame(){
+    public List<Game>  getThegame() {
         return gameService.getListOfGames();
     }
 
@@ -31,7 +32,12 @@ public class GameController {
 
     @PostMapping(path = "{id}/join")
     public List<Game>  requestJoinGame(@PathVariable("id") Long id , @RequestBody Player player){
-        return gameService.requestJoinGame(id,player);
+        return  gameService.requestJoinGame(id,player);
+    }
+
+    @PostMapping(path = "{id}/end")
+    public List<Game>  endGame(@PathVariable("id") Long id ){
+        return  gameService.endGame(id);
     }
 
     @PostMapping(path = "{id}/{name}/play")
