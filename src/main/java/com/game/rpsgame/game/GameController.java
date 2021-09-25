@@ -1,21 +1,15 @@
 package com.game.rpsgame.game;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.rpsgame.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/game")
 public class GameController {
 
     private final GameService gameService;
-    ObjectMapper mapper = new ObjectMapper();
 
 
     @Autowired
@@ -24,28 +18,33 @@ public class GameController {
     }
 
     @GetMapping
-    public List<Game>  getThegame() {
-        return  gameService.getListOfGames();
-
+    public String  getThegame() {
+        if(gameService.getTheGame() != null) {
+            return "There is a game going on right now. The id of the game is " + gameService.getTheGame().getId().toString() +
+                    " and the number of rounds is set to " + gameService.getTheGame().getNumberOfRounds() +
+                    ". These are the players in the game: " + gameService.getTheGame().getListOfPlayers().get(0).getName() +
+                    " and " + gameService.getTheGame().getListOfPlayers().get(1).getName() ;
+        }
+        return "There are no games available. Please start one!";
     }
 
     @PostMapping
-    public List<Game> registerNewGame(@RequestBody Player player){
+    public Game registerNewGame(@RequestBody Player player){
          return gameService.addNewGame(player);
     }
 
     @PostMapping(path = "{id}/join")
-    public List<Game>  requestJoinGame(@PathVariable("id") Long id , @RequestBody Player player){
+    public Game requestJoinGame(@PathVariable("id") Long id , @RequestBody Player player){
         return  gameService.requestJoinGame(id,player);
     }
 
     @PostMapping(path = "{id}/end")
-    public List<Game>  endGame(@PathVariable("id") Long id ){
+    public Game  endGame(@PathVariable("id") Long id ){
         return  gameService.endGame(id);
     }
 
     @PostMapping(path = "{id}/{name}/play")
-    public List<Game> makeAplay(@PathVariable("id") Long id,@PathVariable("name") String name ){
+    public Game makeAplay(@PathVariable("id") Long id,@PathVariable("name") String name ){
         return gameService.makeAplay(id,name);
     }
 

@@ -4,6 +4,9 @@ import com.game.rpsgame.player.Player;
 
 import java.util.*;
 
+import static com.game.rpsgame.player.Player.Move.*;
+import static com.game.rpsgame.player.Player.Move.PAPER;
+
 public class Game {
     private List<Player> listOfPlayers = new ArrayList<>();
     private Long id;
@@ -11,6 +14,27 @@ public class Game {
     private Map<String, Integer> scoreBoard = new HashMap<String, Integer>();
     public enum Status {START,JOINED,WAITING_FOR_PLAY,ROUND_FINISHED,GAME_FINISHED}
     private Status status;
+
+    public void computeResult(List<Player> players, Player p, Game g) {
+        if(players.indexOf(p) == 1){
+            if( ((p.getMove().equals(ROCK) && players.get(0).getMove().equals(SCISSORS)) || (p.getMove().equals(PAPER) && players.get(0).getMove().equals(ROCK)) || (p.getMove().equals(SCISSORS) && players.get(0).getMove().equals(PAPER))) && !(p.getMove() == players.get(0).getMove()) ){
+                g.getScoreBoard().put(p.getName(), g.getScoreBoard().get(p.getName()) +1);
+            }else if (!(p.getMove() ==  players.get(0).getMove())){
+                g.getScoreBoard().put(players.get(0).getName(), g.getScoreBoard().get(players.get(0).getName()) +1);
+            }else{
+                g.getScoreBoard().put("Ties", g.getScoreBoard().get("Ties") +1);
+            }
+        }else{
+            if( ((p.getMove().equals(ROCK) && players.get(1).getMove().equals(SCISSORS)) || (p.getMove().equals(PAPER) && players.get(1).getMove().equals(ROCK)) || (p.getMove().equals(SCISSORS) && players.get(1).getMove().equals(PAPER))) && !(p.getMove() ==  players.get(1).getMove()) ){
+                g.getScoreBoard().put(p.getName(), g.getScoreBoard().get(p.getName()) +1);
+            }else if (!(p.getMove() ==  players.get(1).getMove())){
+                g.getScoreBoard().put(players.get(1).getName(), g.getScoreBoard().get(players.get(1).getName()) +1);
+            }else{
+                g.getScoreBoard().put("Ties", g.getScoreBoard().get("Ties") +1);
+            }
+        }
+    }
+
 
     public Game() {
         this.getScoreBoard().put("Ties",0);
@@ -22,10 +46,6 @@ public class Game {
 
     public Map<String, Integer> getScoreBoard() {
         return scoreBoard;
-    }
-
-    public void setScoreBoard(Map<String, Integer> scoreBoard) {
-        this.scoreBoard = scoreBoard;
     }
 
     public void addPlayerToGame(Player player){
