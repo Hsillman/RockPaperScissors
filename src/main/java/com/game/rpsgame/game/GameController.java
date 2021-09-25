@@ -20,10 +20,16 @@ public class GameController {
     @GetMapping
     public String  getThegame() {
         if(gameService.getTheGame() != null) {
-            return "There is a game going on right now. The id of the game is " + gameService.getTheGame().getId().toString() +
-                    " and the number of rounds is set to " + gameService.getTheGame().getNumberOfRounds() +
-                    ". These are the players in the game: " + gameService.getTheGame().getListOfPlayers().get(0).getName() +
-                    " and " + gameService.getTheGame().getListOfPlayers().get(1).getName() ;
+            if(gameService.getTheGame().getListOfPlayers().size() < 2 ){
+                return "There is a game going on right now. The id of the game is " + gameService.getTheGame().getId().toString() +
+                        " and the number of rounds is set to " + gameService.getTheGame().getNumberOfRounds() +
+                        ". There is only one player in the game: " + gameService.getTheGame().getListOfPlayers().get(0).getName();
+            }else {
+                return "There is a game going on right now. The id of the game is " + gameService.getTheGame().getId().toString() +
+                        " and the number of rounds is set to " + gameService.getTheGame().getNumberOfRounds() +
+                        ". These are the players in the game: " + gameService.getTheGame().getListOfPlayers().get(0).getName() +
+                        " and " + gameService.getTheGame().getListOfPlayers().get(1).getName();
+            }
         }
         return "There are no games available. Please start one!";
     }
