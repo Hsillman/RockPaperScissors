@@ -7,7 +7,6 @@ import java.util.*;
 public class Game {
     private List<Player> listOfPlayers = new ArrayList<>();
     private Long id;
-
     private int numberOfRounds;
     private Map<String, Integer> scoreBoard = new HashMap<String, Integer>();
     public enum Status {START,JOINED,WAITING_FOR_PLAY,ROUND_FINISHED,GAME_FINISHED}
@@ -60,4 +59,6 @@ public class Game {
     public void setNumberOfRounds(int numberOfRounds) {
         this.numberOfRounds = numberOfRounds;
     }
+
+
 }

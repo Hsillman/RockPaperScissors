@@ -1,10 +1,13 @@
 package com.game.rpsgame.game;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.rpsgame.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,7 +25,8 @@ public class GameController {
 
     @GetMapping
     public List<Game>  getThegame() {
-        return gameService.getListOfGames();
+        return  gameService.getListOfGames();
+
     }
 
     @PostMapping

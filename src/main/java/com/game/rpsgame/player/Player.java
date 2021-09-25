@@ -5,11 +5,12 @@ import java.util.Random;
 
 public class Player {
     private String name;
-    private String strategy;
-    private int score;
+    public enum Strategy {ROCKS,RANDOM}
+    private Strategy strategy;
     public enum Move {ROCK,PAPER,SCISSORS}
     private Move move;
     private int numberOfRounds;
+    private Strategy opponentStrategy;
 
     public Move getMove() {
         return move;
@@ -24,17 +25,9 @@ public class Player {
         return Move.values()[pick];
     }
 
-
-    public Player(String name, String strategy, int numberOfRounds) {
+    public Player(String name, Strategy strategy, int numberOfRounds) {
         this.name = name;
         this.strategy = strategy;
-        this.numberOfRounds = numberOfRounds;
-    }
-
-    public Player(String name, String strategy, int score, int numberOfRounds) {
-        this.name = name;
-        this.strategy = strategy;
-        this.score = score;
         this.numberOfRounds = numberOfRounds;
     }
 
@@ -45,11 +38,15 @@ public class Player {
         return name;
     }
 
-    public String getStrategy() {
+    public Strategy getStrategy() {
         return strategy;
     }
 
     public int getNumberOfRounds() {
         return numberOfRounds;
+    }
+
+    public void setStrategy(Strategy strategy) {
+        this.strategy = strategy;
     }
 }
