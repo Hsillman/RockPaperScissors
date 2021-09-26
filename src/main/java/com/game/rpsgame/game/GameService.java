@@ -106,7 +106,7 @@ public class GameService {
                             throw new IllegalStateException("This player has made a move already");
                         }
                     }else{
-                        if(players.size() < 2 || (players.get(0).getName() != p.getName() && players.get(1).getName() != p.getName()) ){
+                        if(players.size() < 2 || ( !players.get(0).getName().equals(name)  && !players.get(1).getName().equals(name) ) ){
                             throw new IllegalStateException("You are not part of this game!! Cannot make a play");
                         }
                     }

@@ -20,6 +20,9 @@ public class GameController {
     @GetMapping
     public String  getThegame() {
         if(gameService.getTheGame() != null) {
+            if(gameService.getTheGame().getStatus().equals(Game.Status.GAME_FINISHED)){
+                return "Please end the game with id " +gameService.getTheGame().getId().toString()+" in order to play another one";
+            }
             if(gameService.getTheGame().getListOfPlayers().size() < 2 ){
                 return "There is a game going on right now. The id of the game is " + gameService.getTheGame().getId().toString() +
                         " and the number of rounds is set to " + gameService.getTheGame().getNumberOfRounds() +
@@ -30,6 +33,7 @@ public class GameController {
                         ". These are the players in the game: " + gameService.getTheGame().getListOfPlayers().get(0).getName() +
                         " and " + gameService.getTheGame().getListOfPlayers().get(1).getName();
             }
+
         }
         return "There are no games available. Please start one!";
     }
