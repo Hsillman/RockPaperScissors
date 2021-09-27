@@ -28,10 +28,25 @@ public class GameController {
                         " and the number of rounds is set to " + gameService.getTheGame().getNumberOfRounds() +
                         ". There is only one player in the game: " + gameService.getTheGame().getListOfPlayers().get(0).getName();
             }else {
-                return "There is a game going on right now. The id of the game is " + gameService.getTheGame().getId().toString() +
-                        " and the number of rounds is set to " + gameService.getTheGame().getNumberOfRounds() +
-                        ". These are the players in the game: " + gameService.getTheGame().getListOfPlayers().get(0).getName() +
-                        " and " + gameService.getTheGame().getListOfPlayers().get(1).getName();
+                if (gameService.getTheGame().getListOfPlayers().get(0).getMove() == null){
+                    return "There is a game going on right now. The id of the game is " + gameService.getTheGame().getId().toString() +
+                            " and the number of rounds is set to " + gameService.getTheGame().getNumberOfRounds() +
+                            ". These are the players in the game: " + gameService.getTheGame().getListOfPlayers().get(0).getName() +
+                            " and " + gameService.getTheGame().getListOfPlayers().get(1).getName() + ". Now its time for "+
+                            gameService.getTheGame().getListOfPlayers().get(0).getName() + " to make a play.";
+                }else if (gameService.getTheGame().getListOfPlayers().get(1).getMove() == null){
+                    return "There is a game going on right now. The id of the game is " + gameService.getTheGame().getId().toString() +
+                            " and the number of rounds is set to " + gameService.getTheGame().getNumberOfRounds() +
+                            ". These are the players in the game: " + gameService.getTheGame().getListOfPlayers().get(0).getName() +
+                            " and " + gameService.getTheGame().getListOfPlayers().get(1).getName() + ". Now its time for "+
+                            gameService.getTheGame().getListOfPlayers().get(1).getName() + " to make a play.";
+                }else{
+                    return "There is a game going on right now. The id of the game is " + gameService.getTheGame().getId().toString() +
+                            " and the number of rounds is set to " + gameService.getTheGame().getNumberOfRounds() +
+                            ". These are the players in the game: " + gameService.getTheGame().getListOfPlayers().get(0).getName() +
+                            " and " + gameService.getTheGame().getListOfPlayers().get(1).getName();
+                }
+
             }
 
         }
