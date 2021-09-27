@@ -10,7 +10,7 @@ Clone the project and go to the target folder. In the folder, you will se the JA
 
     <YOUR_JAVA_PATH> -jar rpsgame-0.0.1-SNAPSHOT.jar
 
-Your application will start at localhost:8080
+Your application will start at localhost:8080/api/game
 
 ## Deploy the application on Google Cloud
 This approach is ideal for playing with people that are not in the same network.
