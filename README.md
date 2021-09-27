@@ -13,7 +13,7 @@ In order to deploy the application on google cloud, please follow the instructio
 
 Please note that, you don't need to follow the **"Create a new Spring Boot web app"** step. Also, the step to update the pom.xml file can be skipped since the project has that dependency already. 
 
-In the **"Add a controller"** step, instead of creating the code that is shown, you will need to upload all of the files of the project to the cloud by using the cloud shell. Here is a quick tutorial on how to upload files using the shell: https://cloud.google.com/shell/docs/uploading-and-downloading-files
+In the **"Add a controller"** step, instead of creating the code that is shown, you will need to upload the folder that contains all the files of the project, by using the cloud shell. Here is a quick tutorial on how to upload a folder/files using the shell: https://cloud.google.com/shell/docs/uploading-and-downloading-files
 
 
 ## How to play the game using Postman
