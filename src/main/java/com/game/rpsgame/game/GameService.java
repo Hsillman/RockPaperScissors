@@ -19,7 +19,7 @@ public class GameService {
 
 
     public Game addNewGame(Player player) {
-        if(this.getTheGame() == null) {
+        if(this.getTheGame() == null ) {
             Game g = new Game();
             g.generateLongId();
             g.setStatus(START);
