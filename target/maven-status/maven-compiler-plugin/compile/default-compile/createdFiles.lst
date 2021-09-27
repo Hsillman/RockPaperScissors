@@ -1,0 +1,8 @@
+com\game\rpsgame\game\GameController.class
+com\game\rpsgame\player\Player$Move.class
+com\game\rpsgame\game\GameService.class
+com\game\rpsgame\player\Player$Strategy.class
+com\game\rpsgame\game\Game.class
+com\game\rpsgame\player\Player.class
+com\game\rpsgame\game\Game$Status.class
+com\game\rpsgame\RpsgameApplication.class
