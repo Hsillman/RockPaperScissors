@@ -15,7 +15,7 @@ Please note that, you don't need to follow the **"Create a new Spring Boot web a
 
 In the **"Add a controller"** step, instead of creating the code that is shown, you will need to upload the folder that contains all the files of the project, by using the cloud shell. Here is a quick tutorial on how to upload a folder/files using the shell: https://cloud.google.com/shell/docs/uploading-and-downloading-files
 
-Once the project has been uploaded, go to the folder that contains the **mvnw** file so you are able to run the commands shown in the google tutorial.
+Once the project has been uploaded, go to the folder that contains the **mvnw** file so you can run the commands shown in the google tutorial.
 
 ## How to play the game using Postman
 After you deployed the application, please refer to my quick tutorial on how to play the game using Postman : https://www.youtube.com/watch?v=5FXob-goDxQ
