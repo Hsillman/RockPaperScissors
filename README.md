@@ -31,3 +31,28 @@ These and other cases are covered by the code. So, go ahead and try to simulate 
 
 
 ## How to play the game using Git Bash
+Before you continue, it is very important that you watch the video tutorial on how to play the game using Postman. The same idea will be applied here, so it is important that you understand how the game works.
+
+If you are not using localhost just simply change the IP to where your application is running.
+
+Here is a list of commands you need to know in order to play the game:
+
+- GET method  to see the game that is going on
+ 
+       curl http://localhost:8080/api/game
+       
+- POST method to create new game. **"opponentStrategy"** must be RANDOM or ROCKS
+                                              
+      curl -X POST http://localhost:8080/api/game -H 'Content-Type: application/json' -d '{"name":"hugo","opponentStrategy":"ROCKS","numberOfRounds":"3"}' | json_pp
+    
+- POST method to join a game with id = {id}. **"opponentStrategy"** must be RANDOM or ROCKS
+
+      curl -X POST http://localhost:8080/api/game/{id}/join -H 'Content-Type: application/json' -d '{"name":"maria","opponentStrategy":"RANDOM","numberOfRounds":"3"}' | json_pp
+      
+- POST method for player with name = {name} to make a play on the game with id = {id}
+
+      curl -X POST http://localhost:8080/api/game/{id}/{name}/play  | json_pp
+      
+- POST method to end a game with id = {id}
+
+      curl -X POST http://localhost:8080/api/game/{id}/end
