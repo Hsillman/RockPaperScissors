@@ -1,5 +1,5 @@
 # RockPaperScissors
-This is a rock paper scissors game build using Java Spring Boot v2.5.4. Java Spring Boot (Spring Boot) is a tool that makes developing web application and microservices with Spring Framework faster and easier. The framework provides an embedded tomcat, which will be used to make the requests on its default port 8080. 
+This is a rock paper scissors game written with Java11 and build using Java Spring Boot v2.5.4. Java Spring Boot (Spring Boot) is a tool that makes developing web application and microservices with Spring Framework faster and easier. The framework provides an embedded tomcat, which will be used to make the requests on its default port 8080. 
 The game can be played via command line, however, using Postman will make the experience better.
 
 In this game, the player decides the strategy his/her opponent will use. 
@@ -8,7 +8,12 @@ For this, there are two strategies to choose from, **RANDOM** or **ROCKS**.
 ## Deploy the application locally
 
 ## Deploy the application on Google Cloud
-This approach is ideal for playing with people that are not in the same network. 
+This approach is ideal for playing with people that are not in the same network.
+In order to deploy the application on google cloud, please follow the instructions provided by Google: https://codelabs.developers.google.com/codelabs/cloud-app-engine-springboot#0
+
+Please note that, you don't need to follow the **"Create a new Spring Boot web app"** step. Also, the step to update the pom.xml file can be skipped since the project has that dependency already. 
+
+In the **"Add a controller"** step, instead of creating the code that is shown, you will need to upload all of the files of the project to the cloud by using the cloud shell. Here is a quick tutorial on how to upload files using the shell: https://cloud.google.com/shell/docs/uploading-and-downloading-files
 
 
 ## How to play the game using Postman
