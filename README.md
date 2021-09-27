@@ -6,6 +6,9 @@ In this game, the player decides the strategy his/her opponent will use.
 For this, there are two strategies to choose from, **RANDOM** or **ROCKS**.
 
 ## Deploy the application locally
+Clone the project and go to the target folder. In the folder, you will se the JAR file. Open the bash and execute the following command:
+
+    <YOUR_JAVA_PATH> -jar rpsgame-0.0.1-SNAPSHOT.jar
 
 ## Deploy the application on Google Cloud
 This approach is ideal for playing with people that are not in the same network.
