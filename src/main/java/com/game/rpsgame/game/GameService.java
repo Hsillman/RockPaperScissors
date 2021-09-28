@@ -13,11 +13,14 @@ import static com.game.rpsgame.game.Game.Status.*;
 @Service
 public class GameService {
 
+    //An instance of the game
     private Game theGame;
     public Game getTheGame() { return theGame; }
     public void setTheGame(Game theGame) {this.theGame = theGame;}
 
 
+    //add a new player. Starts by checking if the game exists (if it does not, then an exception is thrown)
+    //If the game exists then it will be configured and returned
     public Game addNewGame(Player player) {
         if(this.getTheGame() == null ) {
             Game g = new Game();
@@ -35,8 +38,12 @@ public class GameService {
 
     }
 
+    //request coming from player to join a game that has an id
+    //starts by checking if the game id equals to an existing game AND checks to see if the number of players is less than 2 (throws exception otherwise)
+    //Now it checks to see of the player that is joining has the same number of rounds defined by the player who is already in the game (throws exception otherwise)
+    //finally, it lets the player join the game and flag foundGame is set to true
+    //does some final checks to print exceptions
     public Game  requestJoinGame(Long id, Player player) {
-
         Boolean foundGame = false;
             if(this.getTheGame().getId().equals(id) && this.getTheGame().getListOfPlayers().size() < 2){
                 if(this.getTheGame().getListOfPlayers().get(0).getNumberOfRounds() == player.getNumberOfRounds()) {
@@ -124,9 +131,10 @@ public class GameService {
     }
 
 
-
+    //ends a game by its id. First, it checks if the game that you are trying to end exists (throws exception if it does not)
+    //if the game exists and the game is finished, set the game to null and return the game
+    //if the game is not finished, throw exception
     public Game endGame(Long id) {
-
             if (this.getTheGame().getId().equals(id)) {
                 if(this.getTheGame().getStatus().equals(GAME_FINISHED)) {
                     this.setTheGame(null);

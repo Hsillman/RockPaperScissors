@@ -15,6 +15,10 @@ public class Game {
     public enum Status {START,JOINED,WAITING_FOR_PLAY,ROUND_FINISHED,GAME_FINISHED}
     private Status status;
 
+    //this will comput the result of the rounds. It receives a list of the players in the match, a player p and the game itself
+    //Notice that it has the same logic. Only thing that cheanges is the player index
+    //For example if the game has a list of players [player1,player2] and player1 plays ROCK and player2 plays PAPER, I need to know which player made which move so
+    //I can determine the outcome. If player1 (index 0) played ROCK and player2 (index 1) played PAPER, player2 wins
     public void computeResult(List<Player> players, Player p, Game g) {
         if(players.indexOf(p) == 1){
             if( ((p.getMove().equals(ROCK) && players.get(0).getMove().equals(SCISSORS)) || (p.getMove().equals(PAPER) && players.get(0).getMove().equals(ROCK)) || (p.getMove().equals(SCISSORS) && players.get(0).getMove().equals(PAPER))) && !(p.getMove() == players.get(0).getMove()) ){
@@ -36,6 +40,7 @@ public class Game {
     }
 
 
+    //starts the game with Ties set to 0 inside of the scoreBoard map
     public Game() {
         this.getScoreBoard().put("Ties",0);
     }
@@ -60,6 +65,7 @@ public class Game {
         this.status = status;
     }
 
+    //this will generate the id of the game
     public void generateLongId (){
          this.setId(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE);
     }
