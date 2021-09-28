@@ -67,8 +67,11 @@ public class GameService {
 
 
 
+    //this is used when a player with name = name wants to make a play in a game that has id = id
     public Game makeAplay(Long id, String name) {
-
+            //if the play is in a game that has an id that is not equal to the current game id then it throws exception
+            //if the game exists (id receive is equal to the current game id) it checks if the game is finished (print the game result if thats the case)
+            //Get the list of players in the game. If status of the game is Round finished, then set the move of each player to null. Sets the game status to joined (cause thats the initial state)
             if(this.getTheGame().getId().equals(id) ){
                 if (this.getTheGame().getStatus().equals(GAME_FINISHED)) {
                     throw new IllegalStateException("This game has ended, the result was " + this.getTheGame().getScoreBoard());
@@ -80,13 +83,19 @@ public class GameService {
                     }
                     this.getTheGame().setStatus(JOINED);
                 }
+                //go through player list and will do operations considering each player
+                //if the name provided in the url (ip:8080/api/game/{id}/{name}/play) is equal to the name of the player in the list then it will enter the if
+                //if it doesnt find the player that wants to make a play in the game then checks if someone is trying to make a play in a game with only 1 person. Also,
+                //it checks if the person who is trying to make a play is in the game (throws exception otherwise).
+                //Considering the name provided is valid (that is, the player is in the game), it checks to see if the player is trying to make a play in the game with only 1 person
                 for(Player p : players){
                     if(p.getName().equals(name) ){
                         if(players.size() < 2 ){
                             throw new IllegalStateException("Wait for the opponent to join in order to make a play");
                         }
                         if(p.getMove() == null){
-
+                            //Now, considering that a players move (in the list of players of the game) is not null, it throws an exception saying the player has made a move already
+                            //if the players move is null, it checks to see what his/her opponent strategy is and sets the move accordingly. The list of 2 players has the index 0 and 1. Thats why these checks exist.
                             if(players.indexOf(p) == 1){
                                 if(players.get(0).getOpponentStrategy().equals(ROCKS)){
                                     p.setMove(ROCK);
@@ -100,7 +109,9 @@ public class GameService {
                                     p.setRandomMove();
                                 }
                             }
-
+                            //if the game status is not WAITING_FOR_PLAY then it sets to WAITING_FOR_PLAY
+                            //if the game status is WAITING_FOR_PLAY then it sets to ROUND_FINISHED (it does that because both players had made a move by now). The code lines above set the move of the second player by now
+                            //if the game has status ROUND_FINISHED it will compute the result using the method inside the Game class. As input, it will receive the list of players, a player and the game itself
                             if(this.getTheGame().getStatus().equals(WAITING_FOR_PLAY)){
                                 this.getTheGame().setStatus(ROUND_FINISHED);
                             }else {
@@ -118,6 +129,8 @@ public class GameService {
                         }
                     }
                 }
+                //This checks if the sum of all the values in the map is equal to the number of rounds that was previously set bby the players
+                //Suppose you have a scoreboard of {"Ties":1 , "Hugo":1 , "Maria": 1} and the players agreed on 3 total rounds. In this case the game is finished
                 if (this.getTheGame().getScoreBoard().values().stream().mapToInt(Integer::valueOf).sum() == this.getTheGame().getNumberOfRounds() && this.getTheGame().getStatus().equals(ROUND_FINISHED)) {
                     this.getTheGame().setStatus(GAME_FINISHED);
                 }

@@ -23,6 +23,7 @@ public class Player {
         this.move = move;
     }
 
+    //gets a random pick from the Move enum and set as the move
     public void setRandomMove(){
         int pick = new Random().nextInt(Move.values().length);
         this.setMove(Move.values()[pick]);
